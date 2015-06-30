@@ -13,11 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     systray.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     systray.h
 
-FORMS    += mainwindow.ui \
+FORMS    += \
     systray.ui

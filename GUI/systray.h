@@ -21,6 +21,7 @@ public:
     QSystemTrayIcon* icon;
     QMenu* menu;
     QAction* kapat;
+    bool on_top;
 
     ~systray();
 

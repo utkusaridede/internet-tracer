@@ -17,18 +17,22 @@ systray::systray(QWidget *parent) :
     menu->addAction(kapat);
     connect(icon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(foo()));
     icon->setContextMenu(menu);
-
+    on_top=false;
     icon->show();
-    qDebug("naber");
 }
 
 
 void systray::foo(){
-    this->show();
+    if(on_top){
+        this->hide();
+    }else{
+        this->show();
+    }
+    on_top = !on_top;
 }
 
 void systray::kapatiyoruz(){
-    this->destroy(true,true);
+    exit(EXIT_SUCCESS);
 }
 
 systray::~systray(){
