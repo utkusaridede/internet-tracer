@@ -13,10 +13,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    systray.cpp
+    systray.cpp \
+    qcustomplot.cpp
 
 HEADERS  += \
-    systray.h
+    systray.h \
+    qcustomplot.h
 
 FORMS    += \
     systray.ui
