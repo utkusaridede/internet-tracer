@@ -7,6 +7,7 @@
 #include <QLayout>
 #include <QRect>
 #include <QDesktopWidget>
+#include <QVector>
 
 namespace Ui {
 class systray;
@@ -22,7 +23,7 @@ public:
     QMenu* menu;
     QAction* kapat;
     bool on_top;
-
+    QVector<double> x,y;
     ~systray();
 
 public slots:
