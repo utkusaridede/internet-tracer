@@ -5,7 +5,7 @@ empty_first=true
 in_files=input/ekraninkokusu.pcap
 concurrent=false
 [moreData]
-more=false
+more=true
 [fields]
 extras=radiotap.dbm_antsignal
        radiotap.mactime
@@ -30,3 +30,4 @@ text_fields=sniffer
             wlan_mgt.fixed.timestamp
 	    radiotap.present.vht
 	    radiotap.present.mcs
+	    radiotap.present.ampdu
