@@ -46,15 +46,16 @@ int main(int argc, char* argv[]){
 	close(STDERR_FILENO);
 	// Open a log file in write mode.
 	fp = fopen ("Log.txt", "w+");
+	//system("gksudo su");
 	while (1){
 
 		//Dont block context switches, let the process sleep for some time
-		sleep(3);
-		fprintf(fp, "Abi vurma...\n");
+		//fprintf(fp, "Dosyaya yazmaca...\n"); /* report error message */
+		system("./channelListener.sh");
+		sleep(10);
 		fflush(fp);
 		// Implement and call some function that does core work for this daemon.
 	}
-
 	fclose(fp);
 	return (0);
 }
