@@ -8,6 +8,11 @@
 #include <QRect>
 #include <QDesktopWidget>
 #include <QVector>
+#include <QLinkedList>
+#include <cstdio>
+#include <QTimer>
+#include <pthread.h>
+#include <unistd.h>
 
 namespace Ui {
 class systray;
@@ -23,12 +28,16 @@ public:
     QMenu* menu;
     QAction* kapat;
     bool on_top;
-    QVector<double> x,y;
+    QVector<double> x;
+    static QLinkedList<int> y1;
+    static QLinkedList<int> y2;
+    QTimer *timer;
     ~systray();
 
 public slots:
     void foo();
     void kapatiyoruz();
+    void refresh();
 
 private:
     Ui::systray *ui;

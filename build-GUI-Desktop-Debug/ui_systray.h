@@ -15,7 +15,6 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 #include <qcustomplot.h>
@@ -27,8 +26,8 @@ class Ui_systray
 public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
+    QCustomPlot *widget;
     QCustomPlot *customPlot;
-    QLabel *label_2;
 
     void setupUi(QWidget *systray)
     {
@@ -39,15 +38,15 @@ public:
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        widget = new QCustomPlot(systray);
+        widget->setObjectName(QString::fromUtf8("widget"));
+
+        verticalLayout->addWidget(widget);
+
         customPlot = new QCustomPlot(systray);
         customPlot->setObjectName(QString::fromUtf8("customPlot"));
 
         verticalLayout->addWidget(customPlot);
-
-        label_2 = new QLabel(systray);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        verticalLayout->addWidget(label_2);
 
 
         horizontalLayout->addLayout(verticalLayout);
@@ -61,7 +60,6 @@ public:
     void retranslateUi(QWidget *systray)
     {
         systray->setWindowTitle(QApplication::translate("systray", "Form", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("systray", "HA  BURAYA BAGLI OLANLARI YAZACAUK", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

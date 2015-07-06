@@ -22,7 +22,7 @@ static const uint qt_meta_data_systray[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,12 +32,13 @@ static const uint qt_meta_data_systray[] = {
  // slots: signature, parameters, type, tag, flags
        9,    8,    8,    8, 0x0a,
       15,    8,    8,    8, 0x0a,
+      29,    8,    8,    8, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_systray[] = {
-    "systray\0\0foo()\0kapatiyoruz()\0"
+    "systray\0\0foo()\0kapatiyoruz()\0refresh()\0"
 };
 
 void systray::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -48,6 +49,7 @@ void systray::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->foo(); break;
         case 1: _t->kapatiyoruz(); break;
+        case 2: _t->refresh(); break;
         default: ;
         }
     }
@@ -86,9 +88,9 @@ int systray::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

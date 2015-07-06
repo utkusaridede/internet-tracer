@@ -17,14 +17,10 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QCustomPlot" name="customPlot" native="true"/>
+      <widget class="QCustomPlot" name="widget" native="true"/>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>HA  BURAYA BAGLI OLANLARI YAZACAUK</string>
-       </property>
-      </widget>
+      <widget class="QCustomPlot" name="customPlot" native="true"/>
      </item>
     </layout>
    </item>
