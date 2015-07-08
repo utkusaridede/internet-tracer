@@ -11,6 +11,6 @@ iwconfig wlan0 mode managed
 ifconfig wlan0 up
 dhclient wlan0
 python /home/utku/deneme/sniffer/air_visualizer.pyc /home/utku/deneme/interAir.pcap
-nc 172.16.5.100 8001 < /home/utku/deneme/sniff.sqlite
+nc 192.168.2.224 8001 < /home/utku/deneme/sniff.sqlite
 #rm /dev/internetTracer/sniff.sqlite
 #rm /dev/internetTracer/interAir.pcap

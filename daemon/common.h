@@ -23,13 +23,3 @@
 #include <grp.h>
 #include <libgen.h>
 #include <fcntl.h>
-
-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__APPLE__) || defined(__FreeBSD_kernel__)
-#include <sys/param.h>
-#include <sys/mount.h>
-#include <sys/socket.h>
-#include <sys/sysctl.h>
-#include <sys/time.h>
-#include <net/if.h>
-#include <ifaddrs.h>
-#endif
