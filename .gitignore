@@ -1,4 +1,6 @@
-GUI/GUI.pro.user.*
+GUI/GUI.pro.user
+GUI/GUI.pro.*
+GUI/GUI.pro.user*
 *.o
 sniffer
 Log.txt
