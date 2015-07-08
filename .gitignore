@@ -2,6 +2,5 @@ GUI/GUI.pro.user.*
 *.o
 sniffer
 Log.txt
-daemon
 *.pcap
 build-GUI-Desktop-Debug/best
