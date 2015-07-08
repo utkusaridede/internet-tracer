@@ -6,3 +6,4 @@ sniffer
 Log.txt
 *.pcap
 build-GUI-Desktop-Debug/best
+features/log.txt
