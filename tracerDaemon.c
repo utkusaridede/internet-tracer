@@ -40,6 +40,7 @@ int main(int argc, char* argv[]){
 	char *cp;
 	cp = getcwd(buf, sizeof(buf));
 	chdir(cp);
+	system("mkdir /dev/internetTracer");
 	// Close stdin. stdout and stderr
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
