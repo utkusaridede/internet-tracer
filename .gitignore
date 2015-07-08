@@ -1,0 +1,6 @@
+/GUI.pro.user.*
+*.o
+sniffer/
+Log.txt
+daemon
+ekraninkokusu.pcap

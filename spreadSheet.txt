@@ -1,7 +1,9 @@
-filterable field -> vendor space Herhangi bir packet kendini tanıtıyor mu?)
+filterable field -> vendor space (Herhangi bir packet kendini tanıtıyor mu?)
 
 prob request
 
 36. channel
 
-Deneme
+unix deamon
+
+

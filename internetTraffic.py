@@ -22,6 +22,12 @@ if __name__ == '__main__':
             rx_speed = rx - rx_prev
             print('RX: ', rx_speed, 'bps')
 
+        #total transmit
+        print tx
+
+        #total recieve
+        print rx
+
         time.sleep(1)
 
         tx_prev = tx

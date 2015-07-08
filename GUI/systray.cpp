@@ -1,53 +1,19 @@
 #include "systray.h"
 #include "ui_systray.h"
 #include "qcustomplot.h"
-#define MAX(a,b) (((a)>(b))?(a):(b))
 
 
-FILE* txf;
-FILE* rxf;
-pthread_attr_t attr;
-pthread_t th;
-pthread_mutex_t mutex;
-pthread_mutexattr_t mattr;
-int tx1,tx2,rx1,rx2,rxMax,txMax;
-QLinkedList<int> systray::y1;
-QLinkedList<int> systray::y2;
 
-void* watch(void* args){
-    while(1){
-        pthread_mutex_lock(&mutex);
-        txf=fopen("/sys/class/net/wlan0/statistics/tx_bytes","r");
-        fscanf(txf,"%d",&tx2);
-        rxf=fopen("/sys/class/net/wlan0/statistics/rx_bytes","r");
-        fscanf(rxf,"%d",&rx2);
-        txMax=MAX(txMax,tx2-tx1);
-        rxMax=MAX(rxMax,rx2-rx1);
-        systray::y1.push_back(rx2-rx1);
-        systray::y2.push_back(tx2-tx1);
-        tx1=tx2;
-        rx1=rx2;
-        systray::y1.removeFirst();
-        systray::y2.removeFirst();
-        fclose(txf);
-        fclose(rxf);
-        pthread_mutex_unlock(&mutex);
-        sleep(1);
-    }
-    return NULL;
-}
-
-
-systray::systray(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::systray){   
+systray::systray(QWidget *parent)
+:QWidget(parent),
+ui(new Ui::systray){
     QRect rec = QApplication::desktop()->screenGeometry();
     this->move(rec.width()-this->width()/2,rec.height()/2-this->height());
     ui->setupUi(this);
     txf=fopen("/sys/class/net/wlan0/statistics/tx_bytes","r");
-    fscanf(txf,"%d",&tx2);
+    fscanf(txf,"%lld",&tx2);
     rxf=fopen("/sys/class/net/wlan0/statistics/rx_bytes","r");
-    fscanf(rxf,"%d",&rx2);
+    fscanf(rxf,"%lld",&rx2);
     tx1=tx2; rx1=rx2; txMax=0; rxMax=0;
     icon = new QSystemTrayIcon(this);
     icon->setIcon(QIcon("downloadIcon.png"));
@@ -60,14 +26,14 @@ systray::systray(QWidget *parent) :
     icon->setContextMenu(menu);
     on_top=false;
     icon->show();
-    pthread_attr_init(&attr);
-    pthread_mutex_init(&mutex, &mattr );
     for (int i=0; i<101; ++i){
       x.push_back(i);
       y1.append(0);
       y2.append(0);
     }
-    pthread_create(&th, &attr,watch, NULL );
+    FILE* best=fopen("best","r");
+    fscanf(best,"%lf %lf %lf %lf %lf",&bestDown,&bestUp,&txt,&rxt,&kota);
+    fclose(best);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(1000);
@@ -84,30 +50,79 @@ void systray::foo(){
 }
 
 void systray::refresh(){
+    //Read data
+    txf=fopen("/sys/class/net/wlan0/statistics/tx_bytes","r");
+    rxf=fopen("/sys/class/net/wlan0/statistics/rx_bytes","r");
+    fscanf(rxf,"%lld",&rx2);
+    fscanf(txf,"%lld",&tx2);
+    double rx= (double) (rx2-rx1) / KILO;
+    double tx= (double) (tx2-tx1) / KILO;
+    txMax=MAX(txMax,tx);
+    rxMax=MAX(rxMax,rx);
+    bestDown=MAX(bestDown,rxMax);
+    bestUp=MAX(bestUp,txMax);
+    txt+=tx;
+    rxt+=rx;
+    y1.push_back(rx);
+    y2.push_back(tx);
+    tx1=tx2;
+    rx1=rx2;
+    y1.removeFirst();
+    y2.removeFirst();
+    int indexR=0;
+    int indexT=0;
+    if(txMax>=GIGA){
+        indexT=3;
+    }else if(txMax>=MEGA){
+        indexT=2;
+    }else if(txMax>=KILO){
+        indexT=1;
+    }
+
+    if(rxMax>=GIGA){
+        indexR=3;
+    }else if(rxMax>=MEGA){
+        indexR=2;
+    }else if(rxMax>=KILO){
+        indexR=1;
+    }
+
     // create graph and assign data to it:
+    ui->bestdown->setText(QString::number( bestDown ) );
+    ui->bestup->setText(QString::number(bestUp));
     ui->customPlot->addGraph();
     ui->widget->addGraph();
-    pthread_mutex_lock(&mutex);
-    ui->widget->graph(0)->setData(x,y1);
-    ui->customPlot->graph(0)->setData(x, y2);
-    pthread_mutex_unlock(&mutex);
+    ui->widget->graph(0)->setData(x,y1,fact[indexR]);
+    ui->down->setText(QString::number(y1.last()/fact[indexR]));
+    ui->customPlot->graph(0)->setData(x, y2,fact[indexT]);
+    ui->up->setText(QString::number(y2.last()/fact[indexT]));
     // give the axes some labels:
-    ui->widget->xAxis->setLabel("time");
-    ui->widget->yAxis->setLabel("received");
-    ui->customPlot->xAxis->setLabel("time");
-    ui->customPlot->yAxis->setLabel("transmitted");
+    ui->widget->xAxis->setLabel("time (second)");
+    QString rec("received " + birim[indexR]);
+    ui->widget->yAxis->setLabel(rec);
+    ui->customPlot->xAxis->setLabel("time (seconds)");
+    QString trans("transmitted "+birim[indexT]);
+    ui->customPlot->yAxis->setLabel(trans);
     // set axes ranges, so we see all data:
     ui->customPlot->xAxis->setRange(0, 100);
-    ui->customPlot->yAxis->setRange(0, 5*txMax/4);
+    ui->customPlot->yAxis->setRange(0, txMax/fact[indexT] );
     ui->customPlot->replot();
     ui->widget->xAxis->setRange(0, 100);
-    ui->widget->yAxis->setRange(0, 5*rxMax/4);
+    ui->widget->yAxis->setRange(0, rxMax/fact[indexR]);
     ui->widget->replot();
+    fclose(txf);
+    fclose(rxf);
 }
 void systray::kapatiyoruz(){
+    FILE* best=fopen("best","w");
+    fprintf(best,"%lf %lf %lf %lf %lf",bestDown,bestUp,txt,rxt,kota);
+    fclose(best);
+    fclose(txf);
+    fclose(rxf);
     exit(EXIT_SUCCESS);
 }
 
 systray::~systray(){
+    kapatiyoruz();
     delete ui;
 }

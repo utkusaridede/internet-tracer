@@ -14531,14 +14531,14 @@ void QCPGraph::setData(QCPDataMap *data, bool copy)
   vectors should have equal length. Else, the number of added points will be the size of the
   smallest vector.
 */
-void QCPGraph::setData(const QVector<double> &key, const QLinkedList<int> &value){
+void QCPGraph::setData(const QVector<double> &key, const QLinkedList<double> &value,int fact){
   mData->clear();
-  QLinkedList<int>::const_iterator it;
+  QLinkedList<double>::const_iterator it;
   QVector<double>::const_iterator itt=key.begin();
   QCPData newData;
   for (it=value.begin(); it != value.end(); ++it, ++itt){
     newData.key = *itt;
-    newData.value = *it;
+    newData.value = (*it)/fact;
     mData->insertMulti(newData.key, newData);
   }
 }
