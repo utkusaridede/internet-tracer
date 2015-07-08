@@ -14,11 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
     systray.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    kotaset.cpp
 
 HEADERS  += \
     systray.h \
-    qcustomplot.h
+    qcustomplot.h \
+    kotaset.h
 
 FORMS    += \
-    systray.ui
+    systray.ui \
+    kotaset.ui

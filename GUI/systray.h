@@ -20,6 +20,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <QMessageBox>
+#include <QPixmap>
 
 namespace Ui {
 class systray;
@@ -38,6 +39,7 @@ public:
     QVector<double> x;
     QLinkedList<double> y1;
     QLinkedList<double> y2;
+    QPixmap badges[4];
     FILE* txf;
     FILE* rxf;
     long long int tx1,tx2,rx1,rx2;
@@ -54,6 +56,9 @@ public slots:
     void foo();
     void kapatiyoruz();
     void refresh();
+
+private slots:
+    void on_setKota_clicked();
 
 private:
     Ui::systray *ui;

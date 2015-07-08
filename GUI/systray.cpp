@@ -1,15 +1,19 @@
 #include "systray.h"
 #include "ui_systray.h"
 #include "qcustomplot.h"
-
-
+#include "kotaset.h"
 
 systray::systray(QWidget *parent)
 :QWidget(parent),
 ui(new Ui::systray){
+    badges[0]=QPixmap("b1.png").scaled(45,45,Qt::KeepAspectRatio);
+    badges[1]=QPixmap("b2.png");
+    badges[2]=QPixmap("b3.png");
+    badges[3]=QPixmap("b4.png");
     QRect rec = QApplication::desktop()->screenGeometry();
     this->move(rec.width()-this->width()/2,rec.height()/2-this->height());
     ui->setupUi(this);
+    ui->kotagecme->setText("False");
     txf=fopen("/sys/class/net/wlan0/statistics/tx_bytes","r");
     fscanf(txf,"%lld",&tx2);
     rxf=fopen("/sys/class/net/wlan0/statistics/rx_bytes","r");
@@ -60,8 +64,21 @@ void systray::refresh(){
     double tx= (double) (tx2-tx1) / KILO;
     txMax=MAX(txMax,tx);
     rxMax=MAX(rxMax,rx);
-    bestDown=MAX(bestDown,rxMax);
-    bestUp=MAX(bestUp,txMax);
+    if(bestDown<rxMax){
+        bestDown=rxMax;
+        QMessageBox uy(this);
+        uy.warning(NULL,"Milletce alkisliyoruz","En yuksek indirme oranina ulasildi!!");
+        uy.setStandardButtons(QMessageBox::Ok);
+        uy.show();
+
+    }
+    if(bestUp<txMax){
+        bestUp=txMax;
+        QMessageBox u(this);
+        u.warning(NULL,"Milletce alkisliyoruz","En yuksek gonderme oranina ulasildi!!");
+        u.setStandardButtons(QMessageBox::Ok);
+        u.show();
+    }
     txt+=tx;
     rxt+=rx;
     y1.push_back(rx);
@@ -77,9 +94,11 @@ void systray::refresh(){
         uyari.setStandardButtons(QMessageBox::Ok);
         uyari.show();
         uyarmadik=false;
+        ui->kotagecme->setText("True");
     }
 
-    //KB MB mevzusu
+  ///////////index isleri
+
     int indexR=0;
     int indexT=0;
     if(txMax>=GIGA){
@@ -89,7 +108,6 @@ void systray::refresh(){
     }else if(txMax>=KILO){
         indexT=1;
     }
-
     if(rxMax>=GIGA){
         indexR=3;
     }else if(rxMax>=MEGA){
@@ -99,18 +117,23 @@ void systray::refresh(){
     }
 
     // create graph and assign data to it:
+    ui->downbadge->setPixmap(badges[indexR]);
+    ui->upbadge->setPixmap(badges[indexT]);
+    ui->downT->setText(QString::number(rxt));
+    ui->upT->setText(QString::number(txt));
+    ui->kota->setText(QString::number(kota));
     ui->bestdown->setText(QString::number( bestDown ) );
     ui->bestup->setText(QString::number(bestUp));
     ui->customPlot->addGraph();
-    ui->widget->addGraph();
-    ui->widget->graph(0)->setData(x,y1,fact[indexR]);
+    ui->dgraph->addGraph();
+    ui->dgraph->graph(0)->setData(x,y1,fact[indexR]);
     ui->down->setText(QString::number(y1.last()/fact[indexR]));
     ui->customPlot->graph(0)->setData(x, y2,fact[indexT]);
     ui->up->setText(QString::number(y2.last()/fact[indexT]));
     // give the axes some labels:
-    ui->widget->xAxis->setLabel("time (second)");
+    ui->dgraph->xAxis->setLabel("time (second)");
     QString rec("received " + birim[indexR]);
-    ui->widget->yAxis->setLabel(rec);
+    ui->dgraph->yAxis->setLabel(rec);
     ui->customPlot->xAxis->setLabel("time (seconds)");
     QString trans("transmitted "+birim[indexT]);
     ui->customPlot->yAxis->setLabel(trans);
@@ -118,12 +141,13 @@ void systray::refresh(){
     ui->customPlot->xAxis->setRange(0, 100);
     ui->customPlot->yAxis->setRange(0, txMax/fact[indexT] );
     ui->customPlot->replot();
-    ui->widget->xAxis->setRange(0, 100);
-    ui->widget->yAxis->setRange(0, rxMax/fact[indexR]);
-    ui->widget->replot();
+    ui->dgraph->xAxis->setRange(0, 100);
+    ui->dgraph->yAxis->setRange(0, rxMax/fact[indexR]);
+    ui->dgraph->replot();
     fclose(txf);
     fclose(rxf);
 }
+
 void systray::kapatiyoruz(){
     FILE* best=fopen("best","w");
     fprintf(best,"%lf %lf %lf %lf %lf",bestDown,bestUp,txt,rxt,kota);
@@ -136,4 +160,10 @@ void systray::kapatiyoruz(){
 systray::~systray(){
     kapatiyoruz();
     delete ui;
+}
+
+void systray::on_setKota_clicked(){
+    kotaset* k=new kotaset(NULL,&kota);
+    k->exec();
+    delete(k);
 }
