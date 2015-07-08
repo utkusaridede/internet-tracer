@@ -19,6 +19,7 @@
 #include <QTimer>
 #include <pthread.h>
 #include <unistd.h>
+#include <QMessageBox>
 
 namespace Ui {
 class systray;
@@ -46,7 +47,7 @@ public:
     int  fact[4]={1,KILO,MEGA ,GIGA};
     double  bestDown,bestUp;
     double kota;
-
+    bool uyarmadik;
     ~systray();
 
 public slots:

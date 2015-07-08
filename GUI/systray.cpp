@@ -37,6 +37,7 @@ ui(new Ui::systray){
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(1000);
+    uyarmadik=true;
 }
 
 void systray::foo(){
@@ -69,6 +70,16 @@ void systray::refresh(){
     rx1=rx2;
     y1.removeFirst();
     y2.removeFirst();
+    //Kotayi gectik mi
+    if(uyarmadik && kota < rxt){
+        QMessageBox uyari(this);
+        uyari.warning(NULL,"Kota asimi","Kotayi gectik hocam biraz dikkat");
+        uyari.setStandardButtons(QMessageBox::Ok);
+        uyari.show();
+        uyarmadik=false;
+    }
+
+    //KB MB mevzusu
     int indexR=0;
     int indexT=0;
     if(txMax>=GIGA){
