@@ -3,5 +3,5 @@ GUI/GUI.pro.user.*
 sniffer
 Log.txt
 daemon
-ekraninkokusu.pcap
+*.pcap
 build-GUI-Desktop-Debug/best
