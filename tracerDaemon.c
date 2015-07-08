@@ -53,15 +53,9 @@ int main(int argc, char* argv[]){
 	while (1){
 
 		//Dont block context switches, let the process sleep for some time
-<<<<<<< HEAD
 		//fprintf(fp, "Dosyaya yazmaca...\n"); /* report error message */
 		system("./channelListener.sh");
 		sleep(10);
-=======
-		system("bash channelListener.sh");
-		sleep(30);
-		fprintf(fp, "Abi vurma...\n");
->>>>>>> c308a43ed73a90e86ea374cf655b4201f602bf77
 		fflush(fp);
 		// Implement and call some function that does core work for this daemon.
 	}
