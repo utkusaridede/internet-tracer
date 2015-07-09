@@ -18,12 +18,17 @@ def getVendorByMacAddress(packList):
         if len(info_list) > 0:
             my_json = json.loads(info_list)
             print packetSize, macAddress,str(my_json[0]["company"])
+
+
 fo = open("/home/utku/summerseed/internetTracer/macTracer/sniffFileCount.txt","r")
-    count = fo.read()
-    count = int(count)
-    fo.close()
-for x in xrange(1,count):
-    conn = sqlite3.connect('/home/utku/summerseed/internetTracer/sniffer/data/sniff%d.sqlite' % count)
+count = fo.read()
+count = int(count)
+fo.close()
+
+for x in xrange(1, count):
+    print x
+    print count
+    conn = sqlite3.connect("/home/utku/summerseed/internetTracer/sniffer/data/sniff%d.sqlite" % x)
     c = conn.cursor()
     c.execute('select sum("frame.len"),sum("radiotap.length"),("wlan.ta") from packets group by "wlan.ta"')
     info_list = []
