@@ -4,6 +4,7 @@ import urllib2
 
 fSignal = open("signals", "a")
 fopen = open("company", "a")
+fPackets = open("packetSizes", "a")
 
 def getVendorByMacAddress(packList):
     for row in packList:
@@ -24,7 +25,10 @@ def getVendorByMacAddress(packList):
             my_json = json.loads(info_list)
             print packetSize, macAddress,str(my_json[0]["company"])
             fopen.write(str(my_json[0]["company"]))
+            fPackets.write(macAddress + ", (" + str(my_json[0]["company"])+ ")|" + str(packetSize))
             fopen.write("\n")
+            fPackets.write("\n")
+
 
 fo = open("/home/utku//Repositories/interTracer/internetTracer/macTracer/sniffFileCount.txt","r")
 count = fo.read()
@@ -48,3 +52,4 @@ for x in xrange(1, count):
 
 fopen.close()
 fSignal.close()
+fPackets.close()
