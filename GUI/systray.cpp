@@ -2,6 +2,27 @@
 #include "ui_systray.h"
 #include "qcustomplot.h"
 #include "kotaset.h"
+#include <sqlite3.h>
+#include <stdio.h>
+
+
+double* dataCommand(const char* command){
+    double* q=new double[4];
+    sqlite3 *db;
+    sqlite3_stmt *res;
+    int rc = sqlite3_open("memory", &db);
+    rc = sqlite3_prepare_v2(db,command , -1, &res, 0);
+    rc = sqlite3_step(res);
+
+    if (rc == SQLITE_ROW) {
+        for(int i=1;i<5;i++)
+            q[i-1]= sqlite3_column_double(res, i);
+    }
+
+    sqlite3_finalize(res);
+    sqlite3_close(db);
+    return q;
+}
 
 systray::systray(QWidget *parent)
 :QWidget(parent),
@@ -35,9 +56,15 @@ ui(new Ui::systray){
       y1.append(0);
       y2.append(0);
     }
-    FILE* best=fopen("best","r");
-    fscanf(best,"%lf %lf %lf %lf %lf",&bestDown,&bestUp,&txt,&rxt,&kota);
-    fclose(best);
+    FILE* q=fopen("kota","r");
+    fscanf(q,"%lf",&kota);
+    fclose(q);
+    double* data = dataCommand("select * from t3 where date=20150808");
+    bestUp=data[0];
+    bestDown=data[1];
+    txt=data[2];
+    rxt=data[3];
+    qDebug()<<bestUp;
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(refresh()));
     timer->start(1000);
@@ -147,6 +174,10 @@ void systray::refresh(){
     fclose(txf);
     fclose(rxf);
 }
+
+
+
+
 
 void systray::kapatiyoruz(){
     FILE* best=fopen("best","w");
