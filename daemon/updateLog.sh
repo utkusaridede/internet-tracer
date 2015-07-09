@@ -23,4 +23,4 @@ function apt-history(){
   esac
 }
 
-apt-history > log.txt
+apt-history > data/log
