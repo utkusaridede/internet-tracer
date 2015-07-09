@@ -22,11 +22,14 @@ for i in xrange(0, len(listOsman)):
 	macAdresses.append(listOsman[i][0])
 	packetS.append(float(listOsman[i][1]))
 
+size = len(macAdresses)
+
 plt.bar(x, packetS)
 plt.xticks(x + 0.5, macAdresses, rotation=90)
 
 plt.xlabel('Unique Devices')
 plt.ylabel('Strength')
-plt.title('Signal Strengths')
+title = 'Signal Strengths of ' + `size` + ' Devices'
+plt.title(title)
 
 plt.show()
