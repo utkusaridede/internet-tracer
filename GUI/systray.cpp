@@ -25,9 +25,9 @@ systray::systray(QWidget *parent)
 :QWidget(parent),
 ui(new Ui::systray){
     badges[0]=QPixmap("b1.png").scaled(45,45,Qt::KeepAspectRatio);
-    badges[1]=QPixmap("b2.png");
-    badges[2]=QPixmap("b3.png");
-    badges[3]=QPixmap("b4.png");
+    badges[1]=QPixmap("b2.png").scaled(45,45,Qt::KeepAspectRatio);
+    badges[2]=QPixmap("b3.png").scaled(45,45,Qt::KeepAspectRatio);
+    badges[3]=QPixmap("b4.png").scaled(45,45,Qt::KeepAspectRatio);
     QRect rec = QApplication::desktop()->screenGeometry();
     this->move(rec.width()-this->width()/2,rec.height()/2-this->height());
     ui->setupUi(this);
@@ -110,7 +110,7 @@ ui(new Ui::systray){
     ui->tab_4->graph(0)->setData(KASAP2,BUTCHER2,1);
     // give the axes some labels:
     ui->tab_4->xAxis->setLabel("days");
-    ui->tab_4->yAxis->setLabel("downloads");
+    ui->tab_4->yAxis->setLabel("uploads");
     ui->tab_4->xAxis->setLabel("time (seconds)");
     // set axes ranges, so we see all data:
     ui->tab_4->xAxis->setRange(0, 30);
@@ -132,8 +132,6 @@ void systray::foo(){
 
 void systray::refresh(){
     //Read data
-    struct tm * m;
-    struct tm * n;
     txf=fopen("/sys/class/net/wlan0/statistics/tx_bytes","r");
     rxf=fopen("/sys/class/net/wlan0/statistics/rx_bytes","r");
     fscanf(rxf,"%lld",&rx2);
@@ -248,10 +246,6 @@ void systray::kapatiyoruz(){
     std::string command1=std::string("insert or ignore into gunluk values(")+std::to_string(date)+std::string(",0,0);");
     std::string command2="update gunluk set down=((select down from gunluk where date="+std::to_string(date)+")+"+std::to_string(dxr)+") where date="+std::to_string(date)+";";
     std::string command3="update gunluk set up=((select up from gunluk where date="+std::to_string(date)+")+"+std::to_string(dxt)+") where date="+std::to_string(date)+";";
-    //sprintf(command1,"insert or ignore into gunluk values(%d,0,0);",date);
-    // sprintf(command2,"update gunluk set down=((select down from gunluk where date=%d)+%lf) where date=%d;",date,dxr,date);
-    //sprintf(command3,"update gunluk set up=((select up from gunluk where date=%d)+%lf) where date=%d;",date,dxt,date);
-    //qDebug()<<command2;
     command2=bokcuk(command2);
     command3=bokcuk(command3);
     qDebug()<<command2.c_str();
@@ -276,7 +270,7 @@ void systray::on_setKota_clicked(){
 }
 
 void systray::on_pushButton_clicked(){
-    system("../daemon/updatelog.sh");
+    system("../daemon/updateLog.sh");
     Dialog* d=new Dialog;
     d->exec();
     delete (d);
