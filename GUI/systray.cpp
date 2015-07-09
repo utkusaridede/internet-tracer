@@ -277,5 +277,5 @@ void systray::on_pushButton_clicked(){
 }
 
 void systray::on_pushButton_2_clicked(){
-    system("../");
+    system("gksudo ../daemon/individuaListener.sh");
 }

@@ -1,3 +1,4 @@
 GUI/GUI.pro.*
 sniffer
 build-GUI-Desktop-Debug/best
+*.o
