@@ -19,6 +19,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
+#include <QtGui/QTabWidget>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 #include <qcustomplot.h>
@@ -51,21 +52,29 @@ public:
     QLabel *upbadge;
     QLabel *kotagecme;
     QLabel *label_6;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
+    QTabWidget *tabWidget;
+    QWidget *tab;
+    QHBoxLayout *horizontalLayout_3;
     QCustomPlot *dgraph;
     QLabel *down;
+    QWidget *tab_2;
+    QTabWidget *tabWidget_2;
+    QWidget *tab_3;
+    QHBoxLayout *horizontalLayout_2;
     QCustomPlot *customPlot;
     QLabel *up;
+    QWidget *tab_4;
 
     void setupUi(QWidget *systray)
     {
         if (systray->objectName().isEmpty())
             systray->setObjectName(QString::fromUtf8("systray"));
-        systray->resize(460, 498);
+        systray->resize(460, 564);
         verticalLayoutWidget = new QWidget(systray);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(299, 320, 151, 80));
+        verticalLayoutWidget->setGeometry(QRect(300, 380, 151, 80));
         verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -86,7 +95,7 @@ public:
 
         groupBox = new QGroupBox(systray);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(10, 410, 271, 80));
+        groupBox->setGeometry(QRect(10, 470, 271, 80));
         gridLayout_4 = new QGridLayout(groupBox);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         gridLayout_3 = new QGridLayout();
@@ -117,7 +126,7 @@ public:
 
         groupBox_2 = new QGroupBox(systray);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(10, 310, 271, 101));
+        groupBox_2->setGeometry(QRect(10, 360, 271, 101));
         horizontalLayout = new QHBoxLayout(groupBox_2);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         gridLayout_2 = new QGridLayout();
@@ -157,31 +166,62 @@ public:
 
         kotagecme = new QLabel(systray);
         kotagecme->setObjectName(QString::fromUtf8("kotagecme"));
-        kotagecme->setGeometry(QRect(370, 460, 51, 20));
+        kotagecme->setGeometry(QRect(350, 520, 51, 20));
         label_6 = new QLabel(systray);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(350, 430, 81, 16));
-        widget = new QWidget(systray);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(9, 9, 441, 301));
-        verticalLayout = new QVBoxLayout(widget);
+        label_6->setGeometry(QRect(340, 490, 81, 16));
+        layoutWidget = new QWidget(systray);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 441, 351));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        dgraph = new QCustomPlot(widget);
+        tabWidget = new QTabWidget(layoutWidget);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        horizontalLayout_3 = new QHBoxLayout(tab);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        dgraph = new QCustomPlot(tab);
         dgraph->setObjectName(QString::fromUtf8("dgraph"));
         down = new QLabel(dgraph);
         down->setObjectName(QString::fromUtf8("down"));
-        down->setGeometry(QRect(10, 100, 61, 21));
+        down->setGeometry(QRect(40, 90, 61, 21));
+        down->raise();
+        tabWidget->raise();
 
-        verticalLayout->addWidget(dgraph);
+        horizontalLayout_3->addWidget(dgraph);
 
-        customPlot = new QCustomPlot(widget);
+        tabWidget->addTab(tab, QString());
+        dgraph->raise();
+        layoutWidget->raise();
+        dgraph->raise();
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        tabWidget->addTab(tab_2, QString());
+
+        verticalLayout->addWidget(tabWidget);
+
+        tabWidget_2 = new QTabWidget(layoutWidget);
+        tabWidget_2->setObjectName(QString::fromUtf8("tabWidget_2"));
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        horizontalLayout_2 = new QHBoxLayout(tab_3);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        customPlot = new QCustomPlot(tab_3);
         customPlot->setObjectName(QString::fromUtf8("customPlot"));
         up = new QLabel(customPlot);
         up->setObjectName(QString::fromUtf8("up"));
-        up->setGeometry(QRect(10, 100, 61, 21));
+        up->setGeometry(QRect(40, 90, 61, 31));
 
-        verticalLayout->addWidget(customPlot);
+        horizontalLayout_2->addWidget(customPlot);
+
+        tabWidget_2->addTab(tab_3, QString());
+        tab_4 = new QWidget();
+        tab_4->setObjectName(QString::fromUtf8("tab_4"));
+        tabWidget_2->addTab(tab_4, QString());
+
+        verticalLayout->addWidget(tabWidget_2);
 
 
         retranslateUi(systray);
@@ -208,9 +248,13 @@ public:
         bestup->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
         upbadge->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
         kotagecme->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("systray", "Kotayi gecctik mi", 0, QApplication::UnicodeUTF8));
+        label_6->setText(QApplication::translate("systray", "Quota Exceeded", 0, QApplication::UnicodeUTF8));
         down->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("systray", "Tab 1", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("systray", "Tab 2", 0, QApplication::UnicodeUTF8));
         up->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_3), QApplication::translate("systray", "Tab 1", 0, QApplication::UnicodeUTF8));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_4), QApplication::translate("systray", "Tab 2", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

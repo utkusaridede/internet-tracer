@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>460</width>
-    <height>498</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>299</x>
-     <y>320</y>
+     <x>300</x>
+     <y>380</y>
      <width>151</width>
      <height>80</height>
     </rect>
@@ -50,7 +50,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>410</y>
+     <y>470</y>
      <width>271</width>
      <height>80</height>
     </rect>
@@ -100,7 +100,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>310</y>
+     <y>360</y>
      <width>271</width>
      <height>101</height>
     </rect>
@@ -160,8 +160,8 @@
   <widget class="QLabel" name="kotagecme">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>460</y>
+     <x>350</x>
+     <y>520</y>
      <width>51</width>
      <height>20</height>
     </rect>
@@ -173,57 +173,94 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>430</y>
+     <x>340</x>
+     <y>490</y>
      <width>81</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Kotayi gecctik mi</string>
+    <string>Quota Exceeded</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>9</y>
+     <x>10</x>
+     <y>10</y>
      <width>441</width>
-     <height>301</height>
+     <height>351</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QCustomPlot" name="dgraph" native="true">
-      <widget class="QLabel" name="down">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>100</y>
-         <width>61</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
+     <widget class="QTabWidget" name="tabWidget">
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QCustomPlot" name="dgraph" native="true">
+          <widget class="QLabel" name="down">
+           <property name="geometry">
+            <rect>
+             <x>40</x>
+             <y>90</y>
+             <width>61</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+          <zorder>down</zorder>
+          <zorder>tabWidget</zorder>
+         </widget>
+        </item>
+       </layout>
+       <zorder>dgraph</zorder>
+       <zorder>layoutWidget</zorder>
+       <zorder>dgraph</zorder>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
       </widget>
      </widget>
     </item>
     <item>
-     <widget class="QCustomPlot" name="customPlot" native="true">
-      <widget class="QLabel" name="up">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>100</y>
-         <width>61</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
+     <widget class="QTabWidget" name="tabWidget_2">
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Tab 1</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QCustomPlot" name="customPlot" native="true">
+          <widget class="QLabel" name="up">
+           <property name="geometry">
+            <rect>
+             <x>40</x>
+             <y>90</y>
+             <width>61</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Tab 2</string>
+       </attribute>
       </widget>
      </widget>
     </item>

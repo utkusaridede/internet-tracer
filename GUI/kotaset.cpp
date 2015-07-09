@@ -11,8 +11,7 @@ kotaset::kotaset(QWidget *parent,double* kota) :
     ui->lineEdit->setText(QString::number(*kota));
 }
 
-kotaset::~kotaset()
-{
+kotaset::~kotaset(){
     delete ui;
 }
 
