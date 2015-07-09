@@ -2,7 +2,7 @@
 #include "ui_systray.h"
 #include "qcustomplot.h"
 #include "kotaset.h"
-
+#include "dialog.h"
 
 
 double dataCommand(const char* command){
@@ -53,7 +53,10 @@ ui(new Ui::systray){
       y1.append(0);
       y2.append(0);
     }
-    //ui->tab->
+    ui->tabWidget->setTabText(0,"Current");
+    ui->tabWidget->setTabText(1,"This Month");
+    ui->tabWidget_2->setTabText(0,"Current");
+    ui->tabWidget_2->setTabText(1,"This Month");
     FILE* best=fopen("best","r");
     fscanf(best,"%lf %lf %lf",&bestDown,&bestUp,&kota);
     fclose(best);
@@ -78,6 +81,42 @@ ui(new Ui::systray){
     timer->start(1000);
     uyarmadik=true;
     d=0;u=0;
+    QLinkedList<double> BUTCHER;
+    QVector<double> KASAP(31);
+    for(int i=0;i<=30;i++){
+        sprintf(command1,"select down from gunluk where date=%d",(date+i));
+        BUTCHER.push_back(dataCommand(command1));
+        KASAP[i]=i;
+    }
+    ui->tab_2->addGraph();
+    ui->tab_2->graph(0)->setData(KASAP,BUTCHER,1);
+    // give the axes some labels:
+    ui->tab_2->xAxis->setLabel("days");
+    ui->tab_2->yAxis->setLabel("downloads");
+    ui->tab_2->xAxis->setLabel("time (seconds)");
+    // set axes ranges, so we see all data:
+    ui->tab_2->xAxis->setRange(0, 30);
+    ui->tab_2->yAxis->setRange(0,rxt);
+    ui->tab_2->replot();
+
+    QLinkedList<double> BUTCHER2;
+    QVector<double> KASAP2(31);
+    for(int i=0;i<=30;i++){
+        sprintf(command1,"select up from gunluk where date=%d",(date+i));
+        BUTCHER2.push_back(dataCommand(command1));
+        KASAP2[i]=i;
+    }
+    ui->tab_4->addGraph();
+    ui->tab_4->graph(0)->setData(KASAP2,BUTCHER2,1);
+    // give the axes some labels:
+    ui->tab_4->xAxis->setLabel("days");
+    ui->tab_4->yAxis->setLabel("downloads");
+    ui->tab_4->xAxis->setLabel("time (seconds)");
+    // set axes ranges, so we see all data:
+    ui->tab_4->xAxis->setRange(0, 30);
+    ui->tab_4->yAxis->setRange(0,txt);
+    ui->tab_4->replot();
+
 
 }
 
@@ -208,7 +247,7 @@ void systray::kapatiyoruz(){
     qDebug()<<date;
     std::string command1=std::string("insert or ignore into gunluk values(")+std::to_string(date)+std::string(",0,0);");
     std::string command2="update gunluk set down=((select down from gunluk where date="+std::to_string(date)+")+"+std::to_string(dxr)+") where date="+std::to_string(date)+";";
-    std::string command3="update gunluk set up=((select up from gunluk where date="+std::to_string(date)+")+"+std::to_string(dxr)+") where date="+std::to_string(date)+";";
+    std::string command3="update gunluk set up=((select up from gunluk where date="+std::to_string(date)+")+"+std::to_string(dxt)+") where date="+std::to_string(date)+";";
     //sprintf(command1,"insert or ignore into gunluk values(%d,0,0);",date);
     // sprintf(command2,"update gunluk set down=((select down from gunluk where date=%d)+%lf) where date=%d;",date,dxr,date);
     //sprintf(command3,"update gunluk set up=((select up from gunluk where date=%d)+%lf) where date=%d;",date,dxt,date);
@@ -234,4 +273,11 @@ void systray::on_setKota_clicked(){
     kotaset* k=new kotaset(NULL,&kota);
     k->exec();
     delete(k);
+}
+
+void systray::on_pushButton_clicked(){
+    system("../daemon/updatelog.sh");
+    Dialog* d=new Dialog;
+    d->exec();
+    delete (d);
 }

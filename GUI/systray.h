@@ -62,6 +62,8 @@ public slots:
 private slots:
     void on_setKota_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::systray *ui;
 };

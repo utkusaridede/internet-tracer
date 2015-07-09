@@ -50,8 +50,6 @@ public:
     QLabel *downbadge;
     QLabel *bestup;
     QLabel *upbadge;
-    QLabel *kotagecme;
-    QLabel *label_6;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QTabWidget *tabWidget;
@@ -59,19 +57,26 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QCustomPlot *dgraph;
     QLabel *down;
-    QWidget *tab_2;
+    QCustomPlot *tab_2;
     QTabWidget *tabWidget_2;
     QWidget *tab_3;
     QHBoxLayout *horizontalLayout_2;
     QCustomPlot *customPlot;
     QLabel *up;
-    QWidget *tab_4;
+    QCustomPlot *tab_4;
+    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout;
+    QLabel *kotagecme;
+    QLabel *label_6;
+    QLabel *label_7;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
 
     void setupUi(QWidget *systray)
     {
         if (systray->objectName().isEmpty())
             systray->setObjectName(QString::fromUtf8("systray"));
-        systray->resize(460, 802);
+        systray->resize(460, 711);
         verticalLayoutWidget = new QWidget(systray);
         verticalLayoutWidget->setObjectName(QString::fromUtf8("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(290, 470, 151, 80));
@@ -95,7 +100,7 @@ public:
 
         groupBox = new QGroupBox(systray);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(10, 560, 271, 80));
+        groupBox->setGeometry(QRect(10, 560, 261, 80));
         gridLayout_4 = new QGridLayout(groupBox);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         gridLayout_3 = new QGridLayout();
@@ -164,12 +169,6 @@ public:
 
         horizontalLayout->addLayout(gridLayout_2);
 
-        kotagecme = new QLabel(systray);
-        kotagecme->setObjectName(QString::fromUtf8("kotagecme"));
-        kotagecme->setGeometry(QRect(350, 610, 51, 20));
-        label_6 = new QLabel(systray);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setGeometry(QRect(340, 580, 81, 16));
         layoutWidget = new QWidget(systray);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(10, 10, 441, 431));
@@ -191,7 +190,7 @@ public:
         horizontalLayout_3->addWidget(dgraph);
 
         tabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
+        tab_2 = new QCustomPlot();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         tabWidget->addTab(tab_2, QString());
 
@@ -208,20 +207,50 @@ public:
         up = new QLabel(customPlot);
         up->setObjectName(QString::fromUtf8("up"));
         up->setGeometry(QRect(10, 120, 61, 31));
+        up->raise();
+        tabWidget->raise();
 
         horizontalLayout_2->addWidget(customPlot);
 
         tabWidget_2->addTab(tab_3, QString());
-        tab_4 = new QWidget();
+        tab_4 = new QCustomPlot();
         tab_4->setObjectName(QString::fromUtf8("tab_4"));
         tabWidget_2->addTab(tab_4, QString());
 
         verticalLayout->addWidget(tabWidget_2);
 
+        gridLayoutWidget = new QWidget(systray);
+        gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(290, 580, 151, 61));
+        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        kotagecme = new QLabel(gridLayoutWidget);
+        kotagecme->setObjectName(QString::fromUtf8("kotagecme"));
+
+        gridLayout->addWidget(kotagecme, 0, 1, 1, 1);
+
+        label_6 = new QLabel(gridLayoutWidget);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+
+        gridLayout->addWidget(label_6, 0, 0, 1, 1);
+
+        label_7 = new QLabel(gridLayoutWidget);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        gridLayout->addWidget(label_7, 1, 0, 1, 1);
+
+        pushButton = new QPushButton(systray);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(40, 660, 151, 31));
+        pushButton_2 = new QPushButton(systray);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setGeometry(QRect(260, 660, 151, 31));
 
         retranslateUi(systray);
 
-        tabWidget_2->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
+        tabWidget_2->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(systray);
@@ -245,14 +274,17 @@ public:
         downbadge->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
         bestup->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
         upbadge->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
-        kotagecme->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("systray", "Quota Exceeded", 0, QApplication::UnicodeUTF8));
         down->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("systray", "Tab 1", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("systray", "Tab 2", 0, QApplication::UnicodeUTF8));
         up->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
         tabWidget_2->setTabText(tabWidget_2->indexOf(tab_3), QApplication::translate("systray", "Tab 1", 0, QApplication::UnicodeUTF8));
         tabWidget_2->setTabText(tabWidget_2->indexOf(tab_4), QApplication::translate("systray", "Tab 2", 0, QApplication::UnicodeUTF8));
+        kotagecme->setText(QApplication::translate("systray", "TextLabel", 0, QApplication::UnicodeUTF8));
+        label_6->setText(QApplication::translate("systray", "Quota Exceeded:", 0, QApplication::UnicodeUTF8));
+        label_7->setText(QApplication::translate("systray", "Remaining quota:", 0, QApplication::UnicodeUTF8));
+        pushButton->setText(QApplication::translate("systray", "Download Log", 0, QApplication::UnicodeUTF8));
+        pushButton_2->setText(QApplication::translate("systray", "Havayi Kokla", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
