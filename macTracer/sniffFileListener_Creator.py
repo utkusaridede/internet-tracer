@@ -3,7 +3,7 @@ import os
 
 
 while 1:
-	fo = open("sniffFileCount.txt","r")
+	fo = open("data/sniffFileCount.txt","r")
 	count = fo.read()
 	count = int(count)
 	fo.close()

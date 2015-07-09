@@ -1,35 +1,23 @@
 from collections import Counter
-from rpy2 import *
-import time
-from rpy2.robjects.packages import importr
-graphics = importr('graphics')
-grdevices = importr('grDevices')
-base = importr('base')
-stats = importr('stats')
+import matplotlib.pyplot as plt
+import numpy as np
 
-companyCounter = open("companyCounter", "w")
-readFile = open("company", "r")
+companyCounter = open("data/companyCounter", "w")
+readFile = open("data/company", "r")
 
 lines = readFile.readlines()
 
-print(Counter(lines).items())
+values = Counter(lines).values()
+keys = Counter(lines).keys()
+items = Counter(lines).items()
 
-import array
+x = np.arange(len(items))
 
-x = array.array('i', range(10))
-y = stats.rnorm(10)
+plt.bar(x, values)
+plt.xticks(x + 0.5, keys, rotation=80)
 
-grdevices.X11()
+plt.xlabel('Companies')
+plt.ylabel('Frequencies')
+plt.title('Company Distrubutions')
 
-graphics.par(mfrow = array.array('i', [2,2]))
-graphics.plot(x, y, ylab = "foo/bar", col = "red")
-
-kwargs = {'ylab':"foo/bar", 'type':"b", 'col':"blue", 'log':"x"}
-graphics.plot(x, y, **kwargs)
-
-
-m = base.matrix(stats.rnorm(100), ncol=5)
-pca = stats.princomp(m)
-graphics.plot(pca, main="Eigen values")
-
-time.sleep(30)
+plt.show()
