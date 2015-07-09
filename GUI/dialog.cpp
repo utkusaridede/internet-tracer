@@ -7,6 +7,7 @@ Dialog::Dialog(QWidget *parent) :
 {
     ui->setupUi(this);
     QFile f("../daemon/data/log");
+    f.open(QIODevice::ReadOnly);
     QTextStream ts(&f);
     ui->textBrowser->setText(ts.readAll());
 }

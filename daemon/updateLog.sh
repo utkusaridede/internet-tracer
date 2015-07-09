@@ -22,5 +22,5 @@ function apt-history(){
       ;;
   esac
 }
-
+mkdir data
 apt-history > data/log
