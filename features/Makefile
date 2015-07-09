@@ -1,0 +1,9 @@
+
+all: data
+	./data
+
+data: datadeneme.cpp
+	g++ datadeneme.cpp -o data -lsqlite3
+
+clean:
+	rm *.o data memory

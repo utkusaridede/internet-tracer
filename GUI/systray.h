@@ -6,7 +6,6 @@
 #define KILO 1000
 #define GIGA 1000000000
 
-
 #include <QWidget>
 #include <QSystemTrayIcon>
 #include <QMenu>
@@ -17,8 +16,6 @@
 #include <QLinkedList>
 #include <cstdio>
 #include <QTimer>
-#include <pthread.h>
-#include <unistd.h>
 #include <QMessageBox>
 #include <QPixmap>
 
@@ -43,7 +40,7 @@ public:
     FILE* txf;
     FILE* rxf;
     long long int tx1,tx2,rx1,rx2;
-    double rxMax,txMax,frx,ftx,rxt,txt;
+    double rxMax,txMax,rxt,txt;
     QTimer *timer;
     QString birim[4]={"(KB)","(MB)","(GB)","(TB)"};
     int  fact[4]={1,KILO,MEGA ,GIGA};

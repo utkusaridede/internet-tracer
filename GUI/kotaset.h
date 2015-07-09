@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <stdlib.h>
 
+
 namespace Ui {
 class kotaset;
 }
