@@ -6,6 +6,10 @@
 #define KILO 1000
 #define GIGA 1000000000
 
+#include <iostream>
+#include <string>
+#include <sqlite3.h>
+#include <ctime>
 #include <QWidget>
 #include <QSystemTrayIcon>
 #include <QMenu>
@@ -40,7 +44,8 @@ public:
     FILE* txf;
     FILE* rxf;
     long long int tx1,tx2,rx1,rx2;
-    double rxMax,txMax,rxt,txt;
+    time_t d,u,n;
+    double rxMax,txMax,rxt,txt,dxt,dxr;
     QTimer *timer;
     QString birim[4]={"(KB)","(MB)","(GB)","(TB)"};
     int  fact[4]={1,KILO,MEGA ,GIGA};

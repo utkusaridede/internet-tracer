@@ -215,14 +215,9 @@
             <string>TextLabel</string>
            </property>
           </widget>
-          <zorder>down</zorder>
-          <zorder>tabWidget</zorder>
          </widget>
         </item>
        </layout>
-       <zorder>dgraph</zorder>
-       <zorder>layoutWidget</zorder>
-       <zorder>dgraph</zorder>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -233,6 +228,9 @@
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget_2">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
         <string>Tab 1</string>

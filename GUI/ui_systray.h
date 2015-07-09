@@ -187,15 +187,10 @@ public:
         down = new QLabel(dgraph);
         down->setObjectName(QString::fromUtf8("down"));
         down->setGeometry(QRect(10, 130, 61, 21));
-        down->raise();
-        tabWidget->raise();
 
         horizontalLayout_3->addWidget(dgraph);
 
         tabWidget->addTab(tab, QString());
-        dgraph->raise();
-        layoutWidget->raise();
-        dgraph->raise();
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         tabWidget->addTab(tab_2, QString());
@@ -225,6 +220,9 @@ public:
 
 
         retranslateUi(systray);
+
+        tabWidget_2->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(systray);
     } // setupUi

@@ -12,11 +12,11 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT $(DEFINES)
-CXXFLAGS      = -m64 -pipe -g -Wall -W -D_REENTRANT $(DEFINES)
+CXXFLAGS      = -m64 -pipe -g -Wall -std=c++11 -W -D_REENTRANT $(DEFINES)
 INCPATH       = -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I. -I.
 LINK          = g++
-LFLAGS        = -m64
-LIBS          = $(SUBLIBS)  -L/usr/lib/x86_64-linux-gnu -lQtGui -lQtCore -lpthread 
+LFLAGS        = -m64 
+LIBS          = $(SUBLIBS) -L/usr/lib/x86_64-linux-gnu -lQtGui -lQtCore -lpthread -lsqlite3
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/bin/qmake-qt4
@@ -93,7 +93,7 @@ first: all
 .SUFFIXES: .o .c .cpp .cc .cxx .C
 
 .cpp.o:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o "$@" "$<"
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o "$@" "$<" 
 
 .cc.o:
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o "$@" "$<"
@@ -202,7 +202,7 @@ compiler_moc_header_make_all: moc_systray.cpp moc_qcustomplot.cpp moc_kotaset.cp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_systray.cpp moc_qcustomplot.cpp moc_kotaset.cpp
 moc_systray.cpp: systray.h
-	/usr/lib/x86_64-linux-gnu/qt4/bin/moc $(DEFINES) $(INCPATH) systray.h -o moc_systray.cpp
+	/usr/lib/x86_64-linux-gnu/qt4/bin/moc $(DEFINES) $(INCPATH) systray.h -o moc_systray.cpp 
 
 moc_qcustomplot.cpp: qcustomplot.h
 	/usr/lib/x86_64-linux-gnu/qt4/bin/moc $(DEFINES) $(INCPATH) qcustomplot.h -o moc_qcustomplot.cpp
@@ -238,13 +238,13 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 ####### Compile
 
 main.o: main.cpp systray.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp 
 
 systray.o: systray.cpp systray.h \
 		ui_systray.h \
 		qcustomplot.h \
 		kotaset.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o systray.o systray.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o systray.o systray.cpp 
 
 qcustomplot.o: qcustomplot.cpp qcustomplot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o qcustomplot.cpp
