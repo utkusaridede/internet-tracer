@@ -1,9 +1,3 @@
-GUI/GUI.pro.user
 GUI/GUI.pro.*
-GUI/GUI.pro.user*
-*.o
 sniffer
-Log.txt
-*.pcap
 build-GUI-Desktop-Debug/best
-features/log.txt

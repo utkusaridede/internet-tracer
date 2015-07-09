@@ -34,3 +34,9 @@ $ cd /home/"username"
 **License**
 
 ...
+
+**Contributors**
+
+Ozan Bulut
+Utku Doganay
+Utku Saridede
