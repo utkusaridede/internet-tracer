@@ -20,8 +20,6 @@ for i in xrange(0, len(listOsman)):
 	macAdresses.append(listOsman[i][0])
 	packetS.append(int(listOsman[i][1]))
 
-print packetS
-
 plt.bar(x, packetS)
 plt.xticks(x + 0.5, macAdresses, rotation=90)
 

@@ -19,16 +19,14 @@ def getVendorByMacAddress(packList):
         info_list = f.read()
         print "*********"
 
-        fSignal.write(signalStrength)
-        fSignal.write("\n")
         if len(info_list) > 0:
             my_json = json.loads(info_list)
-            print packetSize, macAddress,str(my_json[0]["company"])
             fopen.write(str(my_json[0]["company"]))
             fPackets.write(macAddress + ", (" + str(my_json[0]["company"])+ ")|" + str(packetSize))
             fopen.write("\n")
             fPackets.write("\n")
-
+            fSignal.write(macAddress + ", (" + str(my_json[0]["company"])+  ")|" + signalStrength)
+            fSignal.write("\n")
 
 fo = open("/home/utku//Repositories/interTracer/internetTracer/macTracer/sniffFileCount.txt","r")
 count = fo.read()
