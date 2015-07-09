@@ -2,7 +2,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import numpy as np
 
-packetSizes = open("packetSizes", "r")
+packetSizes = open("data/packetSizes", "r")
 
 lines = packetSizes.readlines()
 
@@ -12,6 +12,8 @@ for i in xrange(0, len(lines)):
 	listOsman.append(lines[i].split('|'))
 
 x = np.arange(len(listOsman))
+
+print listOsman
 
 macAdresses = []
 packetS = []
