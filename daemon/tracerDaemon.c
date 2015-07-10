@@ -8,7 +8,7 @@ int main(int argc, char* argv[]){
 
 	/* Create child process */
 	process_id = fork();
-	
+
 	/* Indication of fork() failure */
 	if (process_id < 0){
 
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]){
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
-	
+
 	/* Open a log file in write mode. */
 	//fp = fopen ("Log.txt", "w+");
 
@@ -54,8 +54,8 @@ int main(int argc, char* argv[]){
 		/* Dont block context switches, let the process sleep for some time */
 		//fprintf(fp, "Dosyaya yazmaca...\n"); /* report error message */
 		system("./channelListener.sh");
-		sleep(3600);
-		//fflush(fp);
+		sleep(45);
+	//	fflush(fp);
 		/* Implement and call some function that does core work for this daemon. */
 	}
 	fclose(fp);

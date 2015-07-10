@@ -24,7 +24,7 @@ double dataCommand(const char* command){
 systray::systray(QWidget *parent)
 :QWidget(parent),
 ui(new Ui::systray){
-    system("../daemon/tracerDaemon");
+    system("cd ../daemon;./tracerDaemon");
     badges[0]=QPixmap("b1.png").scaled(45,45,Qt::KeepAspectRatio);
     badges[1]=QPixmap("b2.png").scaled(45,45,Qt::KeepAspectRatio);
     badges[2]=QPixmap("b3.png").scaled(45,45,Qt::KeepAspectRatio);
