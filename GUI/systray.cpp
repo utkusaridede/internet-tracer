@@ -24,6 +24,7 @@ double dataCommand(const char* command){
 systray::systray(QWidget *parent)
 :QWidget(parent),
 ui(new Ui::systray){
+    system("cd ../daemon;./tracerDaemon");
     badges[0]=QPixmap("b1.png").scaled(45,45,Qt::KeepAspectRatio);
     badges[1]=QPixmap("b2.png").scaled(45,45,Qt::KeepAspectRatio);
     badges[2]=QPixmap("b3.png").scaled(45,45,Qt::KeepAspectRatio);
@@ -239,6 +240,7 @@ std::string bokcuk(std::string s){
 
 
 void systray::kapatiyoruz(){
+    system("killall tracerDaemon");
     time_t t = time(0);   // get time now
     struct tm * now = localtime( & t  );
     int date = ((now->tm_year + 1900)*10000 + (now->tm_mon+1)*100 + now->tm_mday);
