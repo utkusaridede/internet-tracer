@@ -37,8 +37,8 @@ int main(int argc, char* argv[]){
 	char buf[BUFSIZ];
 	char *cp;
 	cp = getcwd(buf, sizeof(buf));
-	chdir(cp);
-	system("mkdir /dev/internetTracer");
+	//chdir(cp);
+	//system("mkdir internetTracer");
 
 	/* Close stdin, stdout and stderr */
 	close(STDIN_FILENO);
