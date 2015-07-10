@@ -2,7 +2,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import numpy as np
 
-companyCounter = open("data/companyCounter", "w")
+#companyCounter = open("data/companyCounter", "w")
 readFile = open("data/company", "r")
 
 lines = readFile.readlines()
