@@ -275,3 +275,7 @@ void systray::on_pushButton_clicked(){
     d->exec();
     delete (d);
 }
+
+void systray::on_pushButton_2_clicked(){
+    system("gksudo ../daemon/individuaListener.sh");
+}
