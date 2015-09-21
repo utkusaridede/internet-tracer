@@ -5,7 +5,7 @@ import os
 	#os.system("nc -l -p 8001 -q 1 > /home/utku/summerseed/internetTracer/sniffer/data/sniff.sqlite")
    
 
-con = sqlite3.connect('/home/utku/summerseed/internetTracer/sniffer/data/mainSniff.sqlite')
+con = sqlite3.connect('../sniffer/data/mainSniff.sqlite')
 d = con.cursor()
 d.execute("select max(id) from packets")
 lastId = d.fetchall()   
@@ -14,7 +14,7 @@ lastId = lastId.replace("[(", "")
 lastId = lastId.replace(",)]", "")
 con.close()
 print lastId
-connn = sqlite3.connect('/home/utku/summerseed/internetTracer/sniffer/data/sniff.sqlite')
+connn = sqlite3.connect('../sniffer/data/sniff.sqlite')
 e = connn.cursor()
 e.execute("select id from packets")
 listId = e.fetchall()
@@ -27,7 +27,7 @@ for Id in listId:
 	updatedId = lastId + Id	
 	print updatedId
 	connnn = sqlite3.connect(
-		'/home/utku/summerseed/internetTracer/sniffer/data/sniff.sqlite')
+		'../sniffer/data/sniff.sqlite')
 	g = connnn.cursor()
 	g.execute("UPDATE packets SET id=? WHERE id=?", (updatedId, Id))
 	connnn.commit()
