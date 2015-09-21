@@ -11,6 +11,6 @@ ifconfig wlan0 up
 dhclient wlan0
 cd ../sniffer
 python air_visualizer.pyc input/interAir.pcap
-nc 192.168.43.232 8001 < data/sniff.sqlite
+nc 192.168.2.224 8001 < data/sniff.sqlite
 #rm /home/utku/Repositories/interTracer/internetTracer/sniffer/data/sniff.sqlite
 #rm /home/utku/Repositories/interTracer/internetTracer/sniffer/input/interAir.pcap

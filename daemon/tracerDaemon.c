@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
 		/* Dont block context switches, let the process sleep for some time */
 		//fprintf(fp, "Dosyaya yazmaca...\n"); /* report error message */
 		system("./channelListener.sh");
-		sleep(45);
+		sleep(450);
 	//	fflush(fp);
 		/* Implement and call some function that does core work for this daemon. */
 	}
